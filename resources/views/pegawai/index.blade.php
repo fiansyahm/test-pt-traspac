@@ -30,37 +30,102 @@
             </div>
         </form>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>NIP</th>
-                    <th>Nama</th>
-                    <!-- Tambahkan kolom lainnya sesuai kebutuhan -->
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($pegawai as $p)
+        <div class="table-responsive" id="printableArea">
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>{{ $p->NIP }}</td>
-                        <td>{{ $p->Nama }}</td>
-                        <!-- Tambahkan data-data lain sesuai kebutuhan -->
-                        <td>
-                            <a href="{{ route('pegawai.edit', $p->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                            <form action="{{ route('pegawai.destroy', $p->id) }}" method="POST" class="d-inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus pegawai ini?')">Hapus</button>
-                            </form>
-                        </td>
+                        <th>NIP</th>
+                        <th>Nama</th>
+                        <th>Tempat Lahir</th>
+                        <th>Alamat</th>
+                        <th>Tanggal Lahir</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Golongan</th>
+                        <th>Eselon</th>
+                        <th>Jabatan</th>
+                        <th>Tempat Tugas</th>
+                        <th>Agama</th>
+                        <th>Unit Kerja</th>
+                        <th>No HP</th>
+                        <th>NPWP</th>
+                        <th class="aksi">Aksi</th>
                     </tr>
-                @empty
-                    <tr>
-                        <td colspan="2">Tidak ada data pegawai.</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @forelse ($pegawai as $p)
+                        <tr>
+                            <td>{{ $p->NIP }}</td>
+                            <td>{{ $p->Nama }}</td>
+                            <td>{{ $p->Tempat_Lahir }}</td>
+                            <td>{{ $p->Alamat }}</td>
+                            <td>{{ $p->Tanggal_Lahir }}</td>
+                            <td>{{ $p->Jenis_Kelamin }}</td>
+
+                            <td>{{ $p->jabatan->Golongan}}</td>
+                            <td>{{ $p->jabatan->Eselon}}</td>
+                            <td>{{ $p->jabatan->Jabatan }}</td>
+                            <td>{{ $p->jabatan->Tempat_Tugas }}</td>
+
+                            <td>{{ $p->Agama }}</td>
+
+                            <td>{{ $p->unitKerja->Unit_Kerja}}</td>
+                            <td>{{ $p->No_HP }}</td>
+                            <td>{{ $p->NPWP }}</td>
+                            <td class="aksi">
+                                <a href="{{ route('pegawai.edit', $p->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                <form action="{{ route('pegawai.destroy', $p->id) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus pegawai ini?')">Hapus</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="9">Tidak ada data pegawai.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
 
         {{ $pegawai->links() }}
+
+        <!-- Tombol untuk mencetak tabel -->
+        <button class="btn btn-primary" onclick="printTable()">Cetak Tabel</button>
     </div>
+
+    {{-- cdn jquery --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {{-- cdn datatable --}}
+
+    <!-- Script JavaScript untuk mencetak tabel -->
+    <script>
+        function printTable() {
+            var printContents = document.getElementById('printableArea').innerHTML;
+            var originalContents = document.body.innerHTML;
+    
+            // Menghapus kolom aksi dari tabel yang akan dicetak menggunakan class="aksi"
+            var aksi = document.getElementsByClassName('aksi');
+            for (var i = 0; i < aksi.length; i++) {
+                // display: none !important; agar tidak muncul saat mencetak
+                aksi[i].style.display = 'none';
+            }
+            
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+    
+            // Mengembalikan kolom aksi setelah selesai mencetak
+            for (var i = 0; i < aksi.length; i++) {
+                aksi[i].classList.remove('hide-aksi');
+            }
+        }
+    </script>
+
+    <style>
+        .hide-aksi {
+            display: none !important;
+        }
+    </style>
 @endsection

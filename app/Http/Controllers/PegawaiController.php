@@ -33,7 +33,7 @@ class PegawaiController extends Controller
         $pegawai = $query->with('jabatan', 'unitKerja')->paginate(10);
 
         $unit_kerja = UnitKerja::all();
-        
+        // return $pegawai;
         return view('pegawai.index', compact('pegawai', 'unit_kerja'));
     }
 
