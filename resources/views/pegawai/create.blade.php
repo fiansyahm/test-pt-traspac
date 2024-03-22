@@ -47,6 +47,28 @@
                 <label for="NPWP">NPWP:</label>
                 <input type="text" name="NPWP" class="form-control">
             </div>
+            <div class="form-group">
+                <label for="jabatan_id">Jabatan:</label>
+                {{-- tambah tombol jabatan --}}
+                <a href="{{ route('jabatan.create') }}" class="btn btn-primary">Tambah Jabatan</a>
+                <select name="jabatan_id" class="form-control">
+                    <option>Pilih Jabatan</option>
+                    @foreach ($jabatans as $item)
+                        <option value="{{ $item->id }}">{{ $item->Jabatan }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="unit_kerja_id">Unit Kerja:</label>
+                {{-- tambah tombol unit kerja --}}
+                <a href="{{ route('unit_kerja.create') }}" class="btn btn-primary">Tambah Unit Kerja</a>
+                <select name="unit_kerja_id" class="form-control">
+                    <option>Pilih Unit Kerja</option>
+                    @foreach ($unit_kerjas as $item)
+                        <option value="{{ $item->id }}">{{ $item->Unit_Kerja }}</option>
+                    @endforeach
+                </select>
+            </div>
             <!-- Tambahkan input untuk kolom lainnya sesuai kebutuhan -->
             <button type="submit" class="btn btn-primary">Simpan</button>
         </form>

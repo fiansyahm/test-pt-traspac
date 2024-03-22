@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Pegawai;
 use App\Models\UnitKerja;
+use App\Models\Jabatan;
 use Illuminate\Http\Request;
 
 
@@ -28,12 +29,14 @@ class PegawaiController extends Controller
             });
         }
 
-        $pegawai = $query->paginate(10);
+        // Mengambil informasi jabatan dan unit kerja menggunakan eager loading
+        $pegawai = $query->with('jabatan', 'unitKerja')->paginate(10);
 
         $unit_kerja = UnitKerja::all();
-
+        
         return view('pegawai.index', compact('pegawai', 'unit_kerja'));
     }
+
 
     public function print(Request $request)
     {
@@ -44,11 +47,14 @@ class PegawaiController extends Controller
 
     public function create()
     {
-        return view('pegawai.create');
+        $unit_kerjas = UnitKerja::all();
+        $jabatans = Jabatan::all();
+        return view('pegawai.create', compact('unit_kerjas', 'jabatans'));
     }
 
     public function store(Request $request)
     {
+        // return $request;
         $request->validate([
             // Atur aturan validasi sesuai kebutuhan Anda
         ]);

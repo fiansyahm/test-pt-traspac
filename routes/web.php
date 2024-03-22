@@ -14,22 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\KhitanController;
-use App\Http\Controllers\AqiqahController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\ResumeController;
-use App\Http\Controllers\CekresiController;
-use App\Http\Controllers\ConfirmationController;
 use App\Http\Controllers\SessionController;
-use App\Http\Controllers\CodeController;
-use App\Http\Controllers\MidtransController;
-use App\Http\Controllers\SongController;
-use App\Http\Controllers\VideoController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\FlipbookController;
-use App\Http\Controllers\WeddingController;
 use App\Http\Controllers\PegawaiController;
+use App\Http\Controllers\JabatanController;
+use App\Http\Controllers\UnitKerjaController;
 
 
 
@@ -286,4 +279,40 @@ Route::put('/pegawai/{pegawai}', [PegawaiController::class, 'update'])->name('pe
 // Route untuk menghapus data pegawai
 Route::delete('/pegawai/{pegawai}', [PegawaiController::class, 'destroy'])->name('pegawai.destroy');
 
-// Tambahkan route lainnya sesuai kebutuhan seperti pencarian, menampilkan pegawai berdasarkan unit kerja, dll.
+// Route untuk halaman daftar jabatan
+Route::get('/jabatan', [JabatanController::class, 'index'])->name('jabatan.index');
+
+// Route untuk menampilkan form tambah jabatan
+// Route untuk menampilkan form tambah jabatan
+Route::get('/jabatan/create', [JabatanController::class, 'create'])->name('jabatan.create');
+
+// Route untuk menyimpan data jabatan yang ditambahkan
+Route::post('/jabatan', [JabatanController::class, 'store'])->name('jabatan.store');
+
+// Route untuk menampilkan form edit jabatan
+Route::get('/jabatan/{jabatan}/edit', [JabatanController::class, 'edit'])->name('jabatan.edit');
+
+// Route untuk menyimpan data jabatan yang diperbarui
+Route::put('/jabatan/{jabatan}', [JabatanController::class, 'update'])->name('jabatan.update');
+
+// Route untuk menghapus data jabatan
+Route::delete('/jabatan/{jabatan}', [JabatanController::class, 'destroy'])->name('jabatan.destroy');
+
+// Route untuk halaman daftar unit kerja
+Route::get('/unit-kerja', [UnitKerjaController::class, 'index'])->name('unit_kerja.index');
+
+// Route untuk menampilkan form tambah unit kerja
+Route::get('/unit-kerja/create', [UnitKerjaController::class, 'create'])->name('unit_kerja.create');
+
+// Route untuk menyimpan data unit kerja yang ditambahkan
+Route::post('/unit-kerja', [UnitKerjaController::class, 'store'])->name('unit_kerja.store');
+
+// Route untuk menampilkan form edit unit kerja
+Route::get('/unit-kerja/{unit_kerja}/edit', [UnitKerjaController::class, 'edit'])->name('unit_kerja.edit');
+
+// Route untuk menyimpan data unit kerja yang diperbarui
+Route::put('/unit-kerja/{unit_kerja}', [UnitKerjaController::class, 'update'])->name('unit_kerja.update');
+
+// Route untuk menghapus data unit kerja
+Route::delete('/unit-kerja/{unit_kerja}', [UnitKerjaController::class, 'destroy'])->name('unit_kerja.destroy');
+

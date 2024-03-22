@@ -19,7 +19,12 @@ class CreatePegawaisTable extends Migration
             $table->string('Agama');
             $table->string('No_HP');
             $table->string('NPWP')->nullable();
+            $table->unsignedBigInteger('jabatan_id');
+            $table->unsignedBigInteger('unit_kerja_id');
             $table->timestamps();
+
+            $table->foreign('jabatan_id')->references('id')->on('jabatans')->onDelete('cascade');
+            $table->foreign('unit_kerja_id')->references('id')->on('unit_kerjas')->onDelete('cascade');
         });
     }
 
