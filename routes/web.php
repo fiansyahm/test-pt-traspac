@@ -279,6 +279,12 @@ Route::put('/pegawai/{pegawai}', [PegawaiController::class, 'update'])->name('pe
 // Route untuk menghapus data pegawai
 Route::delete('/pegawai/{pegawai}', [PegawaiController::class, 'destroy'])->name('pegawai.destroy');
 
+// Route untuk mengelola upload foto pegawai
+Route::get('/pegawai/upload/{pegawai}', [PegawaiController::class, 'upload'])->name('pegawai.upload');
+
+// Route untuk mengelola upload foto pegawai
+Route::post('/pegawai/upload/{id}', [PegawaiController::class, 'store_photo'])->name('pegawai.store_photo');
+
 // Route untuk halaman daftar jabatan
 Route::get('/jabatan', [JabatanController::class, 'index'])->name('jabatan.index');
 
@@ -316,3 +322,22 @@ Route::put('/unit-kerja/{unit_kerja}', [UnitKerjaController::class, 'update'])->
 // Route untuk menghapus data unit kerja
 Route::delete('/unit-kerja/{unit_kerja}', [UnitKerjaController::class, 'destroy'])->name('unit_kerja.destroy');
 
+// symlink
+Route::get('/symlink', function () {
+    $linkFolder=public_path('storage');
+    $targetFolder=storage_path('app/public');
+   // Make sure the target folder exists before creating the symlink
+    if (!is_dir($targetFolder)) {
+        die('Target folder does not exist.');
+    }
+
+    // Use shell_exec to execute the ln -s command
+    $command = "ln -s $targetFolder $linkFolder";
+    $result = shell_exec($command);
+
+    if ($result === null) {
+        die('Error creating symlink.');
+    }
+    // ln -s /home/u971422264/domains/akad.in/public_html/storage/app/public /home/u971422264/domains/akad.in/public_html/public/storage
+    echo 'Symlink process successfully completed';
+});

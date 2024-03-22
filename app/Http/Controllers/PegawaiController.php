@@ -5,7 +5,7 @@ use App\Models\Pegawai;
 use App\Models\UnitKerja;
 use App\Models\Jabatan;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
 
 class PegawaiController extends Controller
 {
@@ -89,6 +89,39 @@ class PegawaiController extends Controller
         $pegawai->delete();
 
         return redirect()->route('pegawai.index')->with('success', 'Pegawai berhasil dihapus.');
+    }
+
+    public function upload(Request $request, Pegawai $pegawai)
+    {
+        return view('pegawai.upload', compact('pegawai'));
+    }
+
+    public function store_photo(Request $request,$id)
+    {
+        // Tambahkan logika untuk mengelola upload foto pegawai
+        $pegawai = Pegawai::find($id);
+        //photo
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            if(strpos($pegawai->photo, '/storage/pegawai/') !== false){
+                $imageName = explode('/storage/pegawai/', $pegawai->photo)[1];
+                // Mengecek apakah file sudah ada
+                if (Storage::exists('public/pegawai/' . $imageName)) {
+                    // Menghapus file yang sudah ada
+                    Storage::delete('public/pegawai/' . $imageName);
+                }
+            } 
+
+            $imageName = 'photo' . time() . '.' . $image->getClientOriginalExtension();
+            
+            $photo= '/storage/pegawai/' . $imageName;
+            
+            $image->storeAs('public/pegawai', $imageName);
+            $pegawaiData['photo'] = $photo;
+        }
+
+        Pegawai::where('id', $request->id)->update($pegawaiData);
+        return redirect()->route('pegawai.index')->with('success', 'Foto pegawai berhasil diunggah.');
     }
 
     // Tambahkan fungsi-fungsi lain sesuai kebutuhan seperti pencarian, menampilkan pegawai berdasarkan unit kerja, dll.

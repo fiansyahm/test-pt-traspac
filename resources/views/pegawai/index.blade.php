@@ -34,6 +34,7 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <th>Foto Pegawai</th>
                         <th>NIP</th>
                         <th>Nama</th>
                         <th>Tempat Lahir</th>
@@ -54,6 +55,13 @@
                 <tbody>
                     @forelse ($pegawai as $p)
                         <tr>
+                            <td>
+                                @if($p->photo)
+                                    <img src="{{ $p->photo }}" alt="{{ $p->Nama }}" width="100">
+                                @else
+                                    Belum ada foto
+                                @endif
+                            </td>
                             <td>{{ $p->NIP }}</td>
                             <td>{{ $p->Nama }}</td>
                             <td>{{ $p->Tempat_Lahir }}</td>
@@ -78,6 +86,7 @@
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus pegawai ini?')">Hapus</button>
                                 </form>
+                                <a href="{{ route('pegawai.upload', $p->id) }}" class="btn btn-sm btn-success">Upload Foto</a>
                             </td>
                         </tr>
                     @empty

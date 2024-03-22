@@ -47,6 +47,10 @@
                 <label for="NPWP">NPWP:</label>
                 <input type="text" name="NPWP" class="form-control">
             </div>
+            <div class="mb-3">
+                <label for="photo" class="form-label">Foto:</label>
+                <input type="file" class="form-control" id="photo" name="photo">
+            </div>
             <div class="form-group">
                 <label for="jabatan_id">Jabatan:</label>
                 {{-- tambah tombol jabatan --}}

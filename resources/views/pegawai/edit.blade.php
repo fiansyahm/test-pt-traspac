@@ -48,6 +48,10 @@
                 <label for="NPWP">NPWP:</label>
                 <input type="text" name="NPWP" class="form-control" value="{{ $pegawai->NPWP }}">
             </div>
+            <div class="mb-3">
+                <label for="photo" class="form-label">Foto:</label>
+                <input type="file" class="form-control" id="photo" name="photo" value="{{ $pegawai->photo }}">
+            </div>
             <button type="submit" class="btn btn-primary">Simpan</button>
         </form>
     </div>
