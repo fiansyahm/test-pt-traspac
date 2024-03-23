@@ -13,6 +13,21 @@ use Illuminate\Support\Facades\DB;
 
 class SessionController extends Controller
 {
+
+
+    public function AdminDashboard(){
+        return view('admin.dashboard');
+    }
+
+    public function wpadmin(){
+        if(Auth::check()){
+           return redirect('/admin/resume/dashboard');
+        }
+        else{
+           return redirect('/wpadmin-login');
+        }
+    }
+
     function index()
     {
         if (Auth::check()) {
@@ -70,7 +85,7 @@ class SessionController extends Controller
 
         $user = new User;
         $user->name = $request->name;
-        $user->isAdmin = '0';
+        $user->isAdmin = '1';
         $user->email = $request->email;
         $user->password = bcrypt($request->password); // Use Hash::make() to hash the password
         $user->save();
