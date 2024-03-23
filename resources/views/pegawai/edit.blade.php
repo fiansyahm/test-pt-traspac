@@ -6,7 +6,7 @@
 @section('main')
     <div class="container">
         <h1>Edit Pegawai</h1>
-        <form action="{{ route('pegawai.update', $pegawai->id) }}" method="POST">
+        <form action="{{ route('pegawai.update', $pegawai->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="form-group">
@@ -47,10 +47,6 @@
             <div class="form-group">
                 <label for="NPWP">NPWP:</label>
                 <input type="text" name="NPWP" class="form-control" value="{{ $pegawai->NPWP }}">
-            </div>
-            <div class="mb-3">
-                <label for="photo" class="form-label">Foto:</label>
-                <input type="file" class="form-control" id="photo" name="photo" value="{{ $pegawai->photo }}">
             </div>
             <button type="submit" class="btn btn-primary">Simpan</button>
         </form>

@@ -71,11 +71,13 @@ class PegawaiController extends Controller
         return view('pegawai.edit', compact('pegawai'));
     }
 
-    public function update(Request $request, Pegawai $pegawai)
+    public function update(Request $request,$id)
     {
         $request->validate([
             // Atur aturan validasi sesuai kebutuhan Anda
         ]);
+
+        $pegawai = Pegawai::find($id);
 
         $pegawai->update($request->all());
 

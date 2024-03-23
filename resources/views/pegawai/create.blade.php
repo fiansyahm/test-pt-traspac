@@ -6,7 +6,7 @@
 @section('main')
     <div class="container">
         <h1>Tambah Pegawai</h1>
-        <form action="{{ route('pegawai.store') }}" method="POST">
+        <form action="{{ route('pegawai.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="NIP">NIP:</label>
@@ -46,10 +46,6 @@
             <div class="form-group">
                 <label for="NPWP">NPWP:</label>
                 <input type="text" name="NPWP" class="form-control">
-            </div>
-            <div class="mb-3">
-                <label for="photo" class="form-label">Foto:</label>
-                <input type="file" class="form-control" id="photo" name="photo">
             </div>
             <div class="form-group">
                 <label for="jabatan_id">Jabatan:</label>

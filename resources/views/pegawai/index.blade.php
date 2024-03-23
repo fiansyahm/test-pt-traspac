@@ -113,23 +113,18 @@
         function printTable() {
             var printContents = document.getElementById('printableArea').innerHTML;
             var originalContents = document.body.innerHTML;
-    
-            // Menghapus kolom aksi dari tabel yang akan dicetak menggunakan class="aksi"
-            var aksi = document.getElementsByClassName('aksi');
+
+            // Menghapus button sementara
+            var aksi = document.querySelectorAll('button');
             for (var i = 0; i < aksi.length; i++) {
-                // display: none !important; agar tidak muncul saat mencetak
-                aksi[i].style.display = 'none';
+                aksi[i].classList.add('hide-aksi');
             }
-            
+
             document.body.innerHTML = printContents;
             window.print();
             document.body.innerHTML = originalContents;
-    
-            // Mengembalikan kolom aksi setelah selesai mencetak
-            for (var i = 0; i < aksi.length; i++) {
-                aksi[i].classList.remove('hide-aksi');
-            }
         }
+
     </script>
 
     <style>
