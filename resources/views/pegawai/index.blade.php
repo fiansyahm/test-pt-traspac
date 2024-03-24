@@ -67,7 +67,12 @@
                             <td>{{ $p->Tempat_Lahir }}</td>
                             <td>{{ $p->Alamat }}</td>
                             <td>{{ $p->Tanggal_Lahir }}</td>
-                            <td>{{ $p->Jenis_Kelamin }}</td>
+
+                            @if($p->Jenis_Kelamin == "Laki-laki")
+                                <td>L</td>
+                            @else
+                                <td>P</td>
+                            @endif
 
                             <td>{{ $p->jabatan->Golongan}}</td>
                             <td>{{ $p->jabatan->Eselon}}</td>

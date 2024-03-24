@@ -29,12 +29,29 @@
                 <input type="date" name="Tanggal_Lahir" class="form-control">
             </div>
             <div class="form-group">
-                <label for="Jenis_Kelamin">Jenis Kelamin:</label>
-                <select name="Jenis_Kelamin" class="form-control">
+                <label>Jenis Kelamin:</label><br>
+                <label for="laki-laki"><input type="radio" id="laki-laki" name="jenis_kelamin" value="Laki-laki"> Laki-laki</label><br>
+                <label for="perempuan"><input type="radio" id="perempuan" name="jenis_kelamin" value="Perempuan"> Perempuan</label><br>
+                <select name="Jenis_Kelamin" id="jenis_kelamin_select" class="form-control" 
+                style="display: none;"
+                >
                     <option value="Laki-laki">Laki-laki</option>
                     <option value="Perempuan">Perempuan</option>
                 </select>
             </div>
+            
+            <script>
+                document.getElementById("laki-laki").checked = true;
+                document.getElementById("jenis_kelamin_select").value = "Laki-laki";
+                document.getElementById("laki-laki").addEventListener("click", function() {
+                    // select laki-laki
+                    document.getElementById("jenis_kelamin_select").value = "Laki-laki";
+                });
+                document.getElementById("perempuan").addEventListener("click", function() {
+                    // select perempuan
+                    document.getElementById("jenis_kelamin_select").value = "Perempuan";
+                });
+            </script>
             <div class="form-group">
                 <label for="Agama">Agama:</label>
                 <input type="text" name="Agama" class="form-control">

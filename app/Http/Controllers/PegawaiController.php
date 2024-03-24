@@ -30,7 +30,7 @@ class PegawaiController extends Controller
         }
 
         // Mengambil informasi jabatan dan unit kerja menggunakan eager loading
-        $pegawai = $query->with('jabatan', 'unitKerja')->paginate(10);
+        $pegawai = $query->with('jabatan', 'unitKerja')->paginate(5);
 
         $unit_kerja = UnitKerja::all();
         // return $pegawai;
