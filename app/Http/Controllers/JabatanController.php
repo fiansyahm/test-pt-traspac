@@ -7,10 +7,25 @@ use Illuminate\Http\Request;
 
 class JabatanController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $jabatans = Jabatan::all();
-        return view('jabatan.index', compact('jabatans'));
+        $search = $request->get('search');
+
+        $query = Jabatan::query();
+
+        // Pencarian jabatan berdasarkan NIP atau Nama jika kata kunci pencarian diberikan
+        if (!empty($search)) {
+            $query->where(function ($q) use ($search) {
+                $q->where('Jabatan', 'like', '%' . $search . '%')
+                    ->orWhere('Golongan', 'like', '%' . $search . '%')
+                    ->orWhere('Eselon', 'like', '%' . $search . '%')
+                    ->orWhere('Tempat_Tugas', 'like', '%' . $search . '%');
+            });
+        }
+
+        $jabatan = $query->paginate(10);
+
+        return view('jabatan.index', compact('jabatan'));
     }
 
     public function create()
@@ -39,16 +54,17 @@ class JabatanController extends Controller
         return view('jabatan.edit', compact('jabatan'));
     }
 
-    public function update(Request $request, Jabatan $jabatan)
+    public function update(Request $request,$id)
     {
-        // Validasi data
         $request->validate([
-            'nama' => 'required|string|max:255|unique:jabatans,nama,' . $jabatan->id,
-            // tambahkan validasi sesuai kebutuhan
+            // Atur aturan validasi sesuai kebutuhan Anda
         ]);
 
-        // Perbarui data
+        $jabatan = Jabatan::find($id);
+
         $jabatan->update($request->all());
+
+        // Tambahkan logika untuk mengelola upload foto jabatan
 
         return redirect()->route('jabatan.index')->with('success', 'Jabatan berhasil diperbarui.');
     }

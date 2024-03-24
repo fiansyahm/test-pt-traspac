@@ -101,7 +101,7 @@
         {{ $pegawai->links() }}
 
         <!-- Tombol untuk mencetak tabel -->
-        <a class="btn btn-primary" href="{{ route('pegawai.print') }}">Cetak Tabel</a>
+        <a class="btn btn-primary" href="{{ route('pegawai.print') }}">Halaman Cetak</a>
     </div>
 
     {{-- cdn jquery --}}

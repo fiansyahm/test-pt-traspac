@@ -1,27 +1,17 @@
-<!-- resources/views/jabatan/index.blade.php -->
+<!-- resources/views/unit_kerja/index.blade.php -->
 @extends('template-wpadmin')
 
-@section('navbar_jabatan', 'active')
+@section('navbar_unit_kerja', 'active')
 
 @section('main')
     <div class="container">
-        <h1>Daftar jabatan</h1>
-        <a href="{{ route('jabatan.create') }}" class="btn btn-primary mb-3">Tambah jabatan</a>
-        <form action="{{ route('jabatan.index') }}" method="GET" class="mb-3">
+        <h1>Daftar Unit Kerja</h1>
+        <a href="{{ route('unit_kerja.create') }}" class="btn btn-primary mb-3">Tambah Unit Kerja</a>
+        <form action="{{ route('unit_kerja.index') }}" method="GET" class="mb-3">
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <input type="text" name="search" class="form-control" placeholder="Cari NIP atau Nama" value="{{ request('search') }}">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <select name="unit_kerja_id" class="form-control">
-                            <option value="">Pilih Unit Kerja</option>
-                            @foreach ($unit_kerja as $unit)
-                                <option value="{{ $unit->id }}" {{ request('unit_kerja_id') == $unit->id ? 'selected' : '' }}>{{ $unit->Unit_Kerja }}</option>
-                            @endforeach
-                        </select>
+                        <input type="text" name="search" class="form-control" placeholder="Unit Kerja" value="{{ request('search') }}">
                     </div>
                 </div>
                 <div class="col-md-2">
@@ -33,34 +23,33 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>NIP</th>
-                    <th>Nama</th>
+                    <th>Unit Kerja</th>
+                    <th>Aksi</th>
                     <!-- Tambahkan kolom lainnya sesuai kebutuhan -->
                 </tr>
             </thead>
             <tbody>
-                @forelse ($jabatan as $p)
+                @forelse ($unitKerjas as $p)
                     <tr>
-                        <td>{{ $p->NIP }}</td>
-                        <td>{{ $p->Nama }}</td>
+                        <td>{{ $p->Unit_Kerja }}</td>
                         <!-- Tambahkan data-data lain sesuai kebutuhan -->
                         <td>
-                            <a href="{{ route('jabatan.edit', $p->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                            <form action="{{ route('jabatan.destroy', $p->id) }}" method="POST" class="d-inline">
+                            <a href="{{ route('unit_kerja.edit', $p->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                            <form action="{{ route('unit_kerja.destroy', $p->id) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus jabatan ini?')">Hapus</button>
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus unit_kerja ini?')">Hapus</button>
                             </form>
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="2">Tidak ada data jabatan.</td>
+                        <td colspan="2">Tidak ada data unit_kerja.</td>
                     </tr>
                 @endforelse
             </tbody>
         </table>
 
-        {{ $jabatan->links() }}
+        {{ $unitKerjas->links() }}
     </div>
 @endsection

@@ -19,17 +19,17 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Beranda</a>
+          <a class="nav-link" href="/">Beranda</a>
         </li>
+        @if (Auth::check())
         <li class="nav-item">
-          <a class="nav-link" href="#">Tentang</a>
+          <a class="nav-link" href="/wpadmin">WP Admin</a>
         </li>
+        @else
         <li class="nav-item">
-          <a class="nav-link" href="#">Layanan</a>
+          <a class="nav-link" href="/wpadmin-login">Login</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Kontak</a>
-        </li>
+        @endif
       </ul>
     </div>
   </div>

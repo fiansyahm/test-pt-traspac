@@ -11,17 +11,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <input type="text" name="search" class="form-control" placeholder="Cari NIP atau Nama" value="{{ request('search') }}">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <select name="unit_kerja_id" class="form-control">
-                            <option value="">Pilih Unit Kerja</option>
-                            @foreach ($unit_kerja as $unit)
-                                <option value="{{ $unit->id }}" {{ request('unit_kerja_id') == $unit->id ? 'selected' : '' }}>{{ $unit->Unit_Kerja }}</option>
-                            @endforeach
-                        </select>
+                        <input type="text" name="search" class="form-control" placeholder="Cari Jabatan, Eselon, Golongan, Tempat Tugas" value="{{ request('search') }}">
                     </div>
                 </div>
                 <div class="col-md-2">
@@ -33,16 +23,21 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>NIP</th>
-                    <th>Nama</th>
+                    <th>Jabatan</th>
+                    <th>Eselon</th>
+                    <th>Golongan</th>
+                    <th>Tempat Tugas</th>
+                    <th>Aksi</th>
                     <!-- Tambahkan kolom lainnya sesuai kebutuhan -->
                 </tr>
             </thead>
             <tbody>
                 @forelse ($jabatan as $p)
                     <tr>
-                        <td>{{ $p->NIP }}</td>
-                        <td>{{ $p->Nama }}</td>
+                        <td>{{ $p->Jabatan }}</td>
+                        <td>{{ $p->Eselon }}</td>
+                        <td>{{ $p->Golongan }}</td>
+                        <td>{{ $p->Tempat_Tugas }}</td>
                         <!-- Tambahkan data-data lain sesuai kebutuhan -->
                         <td>
                             <a href="{{ route('jabatan.edit', $p->id) }}" class="btn btn-sm btn-primary">Edit</a>

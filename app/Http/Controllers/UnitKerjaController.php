@@ -7,9 +7,20 @@ use Illuminate\Http\Request;
 
 class UnitKerjaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $unitKerjas = UnitKerja::all();
+        $search = $request->get('search');
+        $query = UnitKerja::query();
+
+        // Pencarian jabatan berdasarkan NIP atau Nama jika kata kunci pencarian diberikan
+        if (!empty($search)) {
+            $query->where(function ($q) use ($search) {
+                $q->where('Unit_Kerja', 'like', '%' . $search . '%');
+            });
+        }
+
+        $unitKerjas = $query->paginate(10);
+
         return view('unit_kerja.index', compact('unitKerjas'));
     }
 
@@ -37,18 +48,18 @@ class UnitKerjaController extends Controller
         return view('unit_kerja.edit', compact('unit_kerja'));
     }
 
-    public function update(Request $request, UnitKerja $unit_kerja)
+    public function update(Request $request, $id)
     {
         // Validasi data
         $request->validate([
-            'nama' => 'required|string|max:255|unique:unit_kerjas,nama,' . $unit_kerja->id,
             // tambahkan validasi sesuai kebutuhan
         ]);
 
-        // Perbarui data
+        $unit_kerja = UnitKerja::find($id);
+
         $unit_kerja->update($request->all());
 
-        return redirect()->route('unit-kerja.index')->with('success', 'Unit Kerja berhasil diperbarui.');
+        return redirect()->route('unit_kerja.index')->with('success', 'Unit Kerja berhasil diperbarui.');
     }
 
     public function destroy(UnitKerja $unit_kerja)
@@ -56,6 +67,6 @@ class UnitKerjaController extends Controller
         // Hapus data
         $unit_kerja->delete();
 
-        return redirect()->route('unit-kerja.index')->with('success', 'Unit Kerja berhasil dihapus.');
+        return redirect()->route('unit_kerja.index')->with('success', 'Unit Kerja berhasil dihapus.');
     }
 }
