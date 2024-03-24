@@ -306,6 +306,18 @@
                     </a>
                   </li>
 
+                  <li class="nav-item @yield('navbar_jabatan')">
+                    <a class="nav-link" href="/jabatan">
+                        Jabatan
+                    </a>
+                  </li>
+
+                  <li class="nav-item @yield('navbar_unit_kerja')">
+                    <a class="nav-link" href="/unit-kerja">
+                        Unit Kerja
+                    </a>
+                  </li>
+
                 </ul>
                 <div class="footer">
                     <p>

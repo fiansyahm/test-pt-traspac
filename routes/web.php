@@ -65,6 +65,12 @@ Route::get('/pegawai/upload/{pegawai}', [PegawaiController::class, 'upload'])->n
 // Route untuk mengelola upload foto pegawai
 Route::post('/pegawai/upload/{id}', [PegawaiController::class, 'store_photo'])->name('pegawai.store_photo');
 
+// Route untuk mengelola upload foto pegawai
+Route::get('/pegawai/print', [PegawaiController::class, 'print'])->name('pegawai.print');
+
+// Route untuk halaman daftar pegawai
+Route::get('/pegawai/search-print', [PegawaiController::class, 'index'])->name('pegawai.search_print');
+
 // Route untuk halaman daftar jabatan
 Route::get('/jabatan', [JabatanController::class, 'index'])->name('jabatan.index');
 

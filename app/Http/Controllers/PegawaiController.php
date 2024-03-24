@@ -37,12 +37,60 @@ class PegawaiController extends Controller
         return view('pegawai.index', compact('pegawai', 'unit_kerja'));
     }
 
-
     public function print(Request $request)
     {
-        $pegawai = Pegawai::all();
+        $search = $request->get('search');
+        $unit_kerja_id = $request->get('unit_kerja_id');
 
-        return view('pegawai.print', compact('pegawai'));
+        $query = Pegawai::query();
+
+        // Filter berdasarkan unit kerja jika unit kerja dipilih
+        if ($unit_kerja_id) {
+            $query->where('unit_kerja_id', $unit_kerja_id);
+        }
+
+        // Pencarian pegawai berdasarkan NIP atau Nama jika kata kunci pencarian diberikan
+        if (!empty($search)) {
+            $query->where(function ($q) use ($search) {
+                $q->where('NIP', 'like', '%' . $search . '%')
+                    ->orWhere('Nama', 'like', '%' . $search . '%');
+            });
+        }
+
+        // Mengambil informasi jabatan dan unit kerja menggunakan eager loading
+        $pegawai = $query->with('jabatan', 'unitKerja')->paginate(10);
+
+        $unit_kerja = UnitKerja::all();
+        // return $pegawai;
+        return view('pegawai.print', compact('pegawai', 'unit_kerja'));
+    }
+
+    public function search_print(Request $request)
+    {
+        $search = $request->get('search');
+        $unit_kerja_id = $request->get('unit_kerja_id');
+
+        $query = Pegawai::query();
+
+        // Filter berdasarkan unit kerja jika unit kerja dipilih
+        if ($unit_kerja_id) {
+            $query->where('unit_kerja_id', $unit_kerja_id);
+        }
+
+        // Pencarian pegawai berdasarkan NIP atau Nama jika kata kunci pencarian diberikan
+        if (!empty($search)) {
+            $query->where(function ($q) use ($search) {
+                $q->where('NIP', 'like', '%' . $search . '%')
+                    ->orWhere('Nama', 'like', '%' . $search . '%');
+            });
+        }
+
+        // Mengambil informasi jabatan dan unit kerja menggunakan eager loading
+        $pegawai = $query->with('jabatan', 'unitKerja')->paginate(10);
+
+        $unit_kerja = UnitKerja::all();
+        // return $pegawai;
+        return view('pegawai.index', compact('pegawai', 'unit_kerja'));
     }
 
     public function create()

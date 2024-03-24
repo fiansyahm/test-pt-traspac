@@ -5,9 +5,8 @@
 
 @section('main')
     <div class="container">
-        <h1>Daftar Pegawai</h1>
-        <a href="{{ route('pegawai.create') }}" class="btn btn-primary mb-3">Tambah Pegawai</a>
-        <form action="{{ route('pegawai.index') }}" method="GET" class="mb-3">
+        <h1>Cetak Daftar Pegawai</h1>
+        <form action="{{ route('pegawai.search_print') }}" method="GET" class="mb-3">
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -49,7 +48,6 @@
                         <th>Unit Kerja</th>
                         <th>No HP</th>
                         <th>NPWP</th>
-                        <th class="aksi">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -79,15 +77,6 @@
                             <td>{{ $p->unitKerja->Unit_Kerja}}</td>
                             <td>{{ $p->No_HP }}</td>
                             <td>{{ $p->NPWP }}</td>
-                            <td class="aksi">
-                                <a href="{{ route('pegawai.edit', $p->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                                <form action="{{ route('pegawai.destroy', $p->id) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus pegawai ini?')">Hapus</button>
-                                </form>
-                                <a href="{{ route('pegawai.upload', $p->id) }}" class="btn btn-sm btn-success">Upload Foto</a>
-                            </td>
                         </tr>
                     @empty
                         <tr>
@@ -101,7 +90,7 @@
         {{ $pegawai->links() }}
 
         <!-- Tombol untuk mencetak tabel -->
-        <a class="btn btn-primary" href="{{ route('pegawai.print') }}">Cetak Tabel</a>
+        <button class="btn btn-primary" onclick="printTable()">Cetak Tabel</button>
     </div>
 
     {{-- cdn jquery --}}
